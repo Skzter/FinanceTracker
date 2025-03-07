@@ -1,39 +1,43 @@
 {% extends "base.html" %} 
 {% block title %} Finanzen-Tracker {% endblock %}
 {% block content %}
-<form method="post" action="{% url 'ToDoApp:addrecord' %}">
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Typ</th>
-            <th>Kategorie</th>
-            <th>Titel</th>
-            <th>Betrag in Euro</th>
-            <th>Aktion</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            {% for field in form %}
-            <td>
-                {{ field }}
-            </td>
+<form method="POST" action="{% url 'ToDoApp:ausgaben' monat %}">
+{% csrf_token %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Typ</th>
+                <th>Monat</th>
+                <th>Kategorie</th>
+                <th>Titel</th>
+                <th>Betrag in Euro</th>
+                <th>Aktion</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if not form.instance.id %}
+            <tr>
+                {%include 'save.html'%}
+            </tr>
+            {% endif %}
+            {% for ausgabe in ausgaben %}
+            <tr class="{% if ausgabe.type == 'A' %}table-danger{% elif ausgabe.type == 'E' %}table-success{% endif %}">
+                {% if form.instance.id == ausgabe.id %}
+                {% include 'save.html' %}
+                {% else %}
+                <td>{{ausgabe.get_type_display}}</td>
+                <td>{{ausgabe.month}}</td>
+                <td>{{ausgabe.get_category_display}}</td>
+                <td>{{ausgabe.title}}</td>
+                <td>{{ausgabe.amount}}</td>
+                <td>
+                    <button formnovalidate type="submit" class="btn btn-warning" name="edit" value="{{ausgabe.id}}">Bearbeiten</button>
+                    <button formnovalidate type="submit" class="btn btn-danger" name="delete" value="{{ausgabe.id}}">Löschen</button>
+                </td>
+                {% endif %}
+            </tr>
             {% endfor %}
-            <td><button type="button" class="btn btn-primary" name="save">Speichern</button></td>
-        </tr>
-        {% for ausgabe in ausgaben %}
-        <tr class="{% if ausgabe.type == 'A' %}table-danger{% elif ausgabe.type == 'E' %}table-success{% endif %}">
-            <td>{{ausgabe.get_type_display}}</td>
-            <td>{{ausgabe.get_category_display}}</td>
-            <td>{{ausgabe.title}}</td>
-            <td>{{ausgabe.amount}}</td>
-            <td>
-                <button type="button" class="btn btn-warning" name="edit">Bearbeiten</button>
-                <button type="button" class="btn btn-danger" name="delete">Löschen</button>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </tbody>
+    </table>
 </form>
 {% endblock %}

@@ -5,12 +5,23 @@
 <div class="container">
     <div class="row row-cols-4">
         <div class="column">
-            <a href="finanzen/1">Januar</a>
+            <a href="{% url 'ToDoApp:ausgaben' 1%}">Januar</a>
         </div>
-        ....
+        <div class="column">
+            <a href="{% url 'ToDoApp:ausgaben' 2%}">Februar</a>
+        </div>
+        <div class="column">
+            <a href="{% url 'ToDoApp:ausgaben' 3%}">März</a>
+        </div>
+        <div class="column">
+            <a href="{% url 'ToDoApp:ausgaben' 4%}">April</a>
+        </div>
+        <div class="column">
+            <a href="{% url 'ToDoApp:ausgaben' 5%}">Mai</a>
+        </div>
     </div>
 </div>
 {% endblock %}
 {% block footer %}
-<a href="{% url 'admin:index' %}"> Eintrag hinzufügen </a>
+<a href="{% url 'admin:index' %}"> Admin Portal! </a>
 {% endblock %}
