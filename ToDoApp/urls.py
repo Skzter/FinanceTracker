@@ -5,5 +5,5 @@ app_name = "ToDoApp"
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("finanzen/<int:month>/", views.ausgaben, name="ausgaben"),
+    path("month/<int:month>/", views.ausgaben, name="ausgaben"),
 ]

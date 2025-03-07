@@ -22,8 +22,9 @@
        </style>
     </head>
     <body>
-        <header class="container">
+        <header class="container d-flex flex-direction-row align-items-center justify-content-around">
             <h1>Finanzen-Tracker {% block monat %}{% endblock %}</h1>
+            {% block home %}{% endblock %}
         </header>
 
         <div class="container">
