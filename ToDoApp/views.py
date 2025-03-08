@@ -2,7 +2,8 @@ from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from .models import Ausgaben
 from django.urls import reverse
 from .forms import AusgabenForm
-
+from bokeh.plotting import figure
+from bokeh.embed import components
 
 # Create your views here.
 def ausgaben(request, month):
@@ -38,4 +39,19 @@ def ausgaben(request, month):
 
 
 def index(request):
-    return render(request, "home.html")
+ 
+    # Bokeh Test
+    #create a plot
+    plot = figure(width=400, height=400)
+
+    plot.toolbar_location = None
+    plot.tools = []
+ 
+   # add a circle renderer with a size, color, and alpha
+    plot.circle([1, 2, 3, 4, 5], [6, 7, 2, 4, 5], size=20, color="navy", alpha=0.5)
+ 
+    script, div = components(plot)
+    context = {}
+    context["script"] = script
+    context["div"] = div   
+    return render(request, "home.html", context)

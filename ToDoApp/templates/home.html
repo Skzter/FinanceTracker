@@ -126,9 +126,11 @@
          </div>
     </div>
 </div>
+{{ div| safe }}
 {% endblock %}
 {% block footer %}
 <footer class="d-flex justify-content-center">
     <a href="{% url 'admin:index' %}" class="btn btn-warning"> Admin Portal! </a>
 </footer>
+{{ script| safe }}
 {% endblock %}
