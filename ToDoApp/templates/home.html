@@ -2,48 +2,133 @@
 {% block title %} Übersicht der Ausgaben {% endblock %}
 {% block content %}
 <h2> Übersicht aller Monate </h2>
-<div class="container">
-    <div class="row row-cols-4">
+<div class="container m-0 p-0">
+    <div class="row row-cols-4 g-2">
         <div class="column">
-            <a href="{% url 'ToDoApp:ausgaben' 1%}">Januar</a>
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title"> Januar </h1>
+                    <p>
+                        <a href="{% url 'ToDoApp:ausgaben' 1%}">Januar</a>
+                    </p>
+                </div>
+            </div>
         </div>
         <div class="column">
-            <a href="{% url 'ToDoApp:ausgaben' 2%}">Februar</a>
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title"> Februar </h1>
+                    <p>
+                        <a href="{% url 'ToDoApp:ausgaben' 2%}">Februar</a>
+                    </p>
+                </div>
+            </div>
         </div>
         <div class="column">
-            <a href="{% url 'ToDoApp:ausgaben' 3%}">März</a>
+             <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title"> März </h1>
+                    <p>
+                        <a href="{% url 'ToDoApp:ausgaben' 3%}">März</a>
+                    </p>
+                </div>
+            </div>
         </div>
         <div class="column">
-            <a href="{% url 'ToDoApp:ausgaben' 4%}">April</a>
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title"> April </h1>
+                    <p>
+                        <a href="{% url 'ToDoApp:ausgaben' 4%}">April</a>
+                    </p>
+                </div>
+            </div>
+        </div>         
+        <div class="column">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title"> Mai </h1>
+                    <p>
+                         <a href="{% url 'ToDoApp:ausgaben' 5%}">Mai</a>
+                    </p>
+                </div>
+            </div>
+        </div> 
+        <div class="column">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title"> Juni </h1>
+                    <p>
+                        <a href="{% url 'ToDoApp:ausgaben' 6%}">Juni</a>
+                    </p>
+                </div>
+            </div>
         </div>
         <div class="column">
-            <a href="{% url 'ToDoApp:ausgaben' 5%}">Mai</a>
-        </div>
-        <div class="column">
-            <a href="{% url 'ToDoApp:ausgaben' 6%}">Juni</a>
-        </div>
-        <div class="column">
-            <a href="{% url 'ToDoApp:ausgaben' 7%}">Juli</a>
-        </div>
-        <div class="column">
-            <a href="{% url 'ToDoApp:ausgaben' 8%}">August</a>
-        </div>
-        <div class="column">
-            <a href="{% url 'ToDoApp:ausgaben' 9%}">September</a>
-        </div>
-        <div class="column">
-            <a href="{% url 'ToDoApp:ausgaben' 10%}">Oktober</a>
-        </div>
-        <div class="column">
-            <a href="{% url 'ToDoApp:ausgaben' 11%}">November</a>
-        </div>
-        <div class="column">
-            <a href="{% url 'ToDoApp:ausgaben' 12%}">Dezember</a>
-        </div>
-
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title"> Juli </h1>
+                    <p>
+                        <a href="{% url 'ToDoApp:ausgaben' 7%}">Juni</a>
+                    </p>
+                </div>
+            </div>
+         </div>
+         <div class="column">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title"> August </h1>
+                    <p>
+                        <a href="{% url 'ToDoApp:ausgaben' 8%}">Juni</a>
+                    </p>
+                </div>
+            </div>
+         </div>
+         <div class="column">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title"> September </h1>
+                    <p>
+                        <a href="{% url 'ToDoApp:ausgaben' 9%}">Juni</a>
+                    </p>
+                </div>
+            </div>
+         </div>
+         <div class="column">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title"> Oktober </h1>
+                    <p>
+                        <a href="{% url 'ToDoApp:ausgaben' 10%}">Juni</a>
+                    </p>
+                </div>
+            </div>
+         </div>
+         <div class="column">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title"> November </h1>
+                    <p>
+                        <a href="{% url 'ToDoApp:ausgaben' 11%}">Juni</a>
+                    </p>
+                </div>
+            </div>
+         </div>
+         <div class="column">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title"> Dezember </h1>
+                    <p>
+                        <a href="{% url 'ToDoApp:ausgaben' 12%}">Juni</a>
+                    </p>
+                </div>
+            </div>
+         </div>
     </div>
 </div>
 {% endblock %}
 {% block footer %}
-<a href="{% url 'admin:index' %}"> Admin Portal! </a>
+<footer class="d-flex justify-content-center">
+    <a href="{% url 'admin:index' %}" class="btn btn-warning"> Admin Portal! </a>
+</footer>
 {% endblock %}

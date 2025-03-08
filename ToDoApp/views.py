@@ -34,6 +34,7 @@ def ausgaben(request, month):
             ausgabe.delete()
 
     context["form"] = form
+    print(context)
     return render(request, "ausgaben.html", context)
 
 
