@@ -4,6 +4,7 @@ from django.urls import reverse
 from .forms import AusgabenForm
 from bokeh.plotting import figure
 from bokeh.embed import components
+from bokeh.models import ColumnDataSource, FactorRange
 
 # Create your views here.
 def ausgaben(request, month):
@@ -39,16 +40,32 @@ def ausgaben(request, month):
 
 
 def index(request):
- 
-    # Bokeh Test
-    #create a plot
-    plot = figure(width=400, height=400)
+    # Barchart mit allen Monaten, wo Ausgaben u Eingaben gesamtheitlich angezeigt werden
+    # Monate Jan - Dez
+    # Ausgaben/Einnahmen aus DB
+    items = Ausgaben.objects
+    einnahmen = []
+    ausgaben = {}
+    for x in range(1,12):
+        monat = items.filter(month=x) 
+        # alle Einnahmen
+        Ein = [eintrag.amount for eintrag in monat.filter(type='E')]
+        sum = 0
+        for e in Ein:
+            sum+=e
+        einnahmen.append(sum) 
 
+        # alle Ausgaben
+        Aus = [eintrag.amount for eintrag in monat.filter(type='A')]
+        ausgaben[x] = Aus
+    
+    print("Einnahmen\n")
+    print(einnahmen)
+    print("Ausgaben\n")
+    print(ausgaben)
+    plot = figure(width=1200, height=200)
     plot.toolbar_location = None
     plot.tools = []
- 
-   # add a circle renderer with a size, color, and alpha
-    plot.circle([1, 2, 3, 4, 5], [6, 7, 2, 4, 5], size=20, color="navy", alpha=0.5)
  
     script, div = components(plot)
     context = {}
