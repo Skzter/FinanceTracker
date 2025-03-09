@@ -50,17 +50,17 @@ def index(request):
         monat = items.filter(month=x) 
         # alle Einnahmen
         Ein = [eintrag.amount for eintrag in monat.filter(type='E')]
-        sum = 0
+        sumE = 0
         for e in Ein:
-            sum+=e
-        einnahmen.append(sum) 
+            sumE+=e
+        einnahmen.append(sumE) 
 
         # alle Ausgaben
         Aus = [eintrag.amount for eintrag in monat.filter(type='A')]
-        sum = 0
+        sumA = 0
         for e in Ein:
-            sum+=e
-        ausgaben.append(sum) 
+            sumA+=e
+        ausgaben.append(sumA) 
 
     months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
               'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'
@@ -74,9 +74,6 @@ def index(request):
 
     x = [(m, t) for m in months for t in type]
 
-    print(x)
-    d = zip(data['Einnahmen'])
-    print(sum(d))
     counts = sum(zip(data['Einnahmen'], data['Ausgaben']), ())
 
     source = ColumnDataSource(data=dict(x=x, counts=counts))
