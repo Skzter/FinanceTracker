@@ -45,8 +45,8 @@ def index(request):
     # Ausgaben/Einnahmen aus DB
     items = Ausgaben.objects
     einnahmen = []
-    ausgaben = {}
-    for x in range(1,12):
+    ausgaben = []
+    for x in range(1,13):
         monat = items.filter(month=x) 
         # alle Einnahmen
         Ein = [eintrag.amount for eintrag in monat.filter(type='E')]
@@ -57,18 +57,60 @@ def index(request):
 
         # alle Ausgaben
         Aus = [eintrag.amount for eintrag in monat.filter(type='A')]
-        ausgaben[x] = Aus
-    
-    print("Einnahmen\n")
-    print(einnahmen)
-    print("Ausgaben\n")
-    print(ausgaben)
-    plot = figure(width=1200, height=200)
-    plot.toolbar_location = None
-    plot.tools = []
- 
+        sum = 0
+        for e in Ein:
+            sum+=e
+        ausgaben.append(sum) 
+
+    months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
+              'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'
+              ]
+    type = ['Einnahmen', 'Ausgaben']
+
+    data = {'months': months,
+            'Einnahmen': einnahmen,
+            'Ausgaben': ausgaben
+            }
+
+    x = [(m, t) for m in months for t in type]
+
+    print(x)
+    d = zip(data['Einnahmen'])
+    print(sum(d))
+    counts = sum(zip(data['Einnahmen'], data['Ausgaben']), ())
+
+    source = ColumnDataSource(data=dict(x=x, counts=counts))
+
+    plot = figure(x_range=FactorRange(*x), height=300,
+                  title="Jahresübersicht Einnahmen/Ausgaben",
+                  toolbar_location=None, tools="")
+    plot.vbar(x='x', top='counts', width=0.9, source=source)
+
     script, div = components(plot)
+    """
+    fruits = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
+    years = ['2015', '2016', '2017']
+
+    data = {'fruits' : fruits,
+            '2015'   : [2, 1, 4, 3, 2, 4],
+            '2016'   : [5, 3, 3, 2, 4, 6],
+            '2017'   : [3, 2, 4, 4, 5, 3]}
+
+    # this creates [ ("Apples", "2015"), ("Apples", "2016"), ("Apples", "2017"), ("Pears", "2015), ... ]
+    x = [ (fruit, year) for fruit in fruits for year in years ]
+    counts = sum(zip(data['2015'], data['2016'], data['2017']), ()) # like an hstack
+
+    source = ColumnDataSource(data=dict(x=x, counts=counts))
+
+    p = figure(x_range=FactorRange(*x), height=350, title="Fruit Counts by Year",
+               toolbar_location=None, tools="")
+
+    p.vbar(x='x', top='counts', width=0.9, source=source)
+    script, div = components(p)
+    """
     context = {}
     context["script"] = script
     context["div"] = div   
+    
+
     return render(request, "home.html", context)
