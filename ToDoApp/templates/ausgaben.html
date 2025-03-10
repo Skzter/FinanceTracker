@@ -29,7 +29,7 @@
                 {% include 'save.html' %}
                 {% else %}
                 <td>{{ausgabe.get_type_display}}</td>
-                <td>{{ausgabe.month}}</td>
+                <td>{{ausgabe.get_month_display}}</td>
                 <td>{{ausgabe.get_category_display}}</td>
                 <td>{{ausgabe.title}}</td>
                 <td>{{ausgabe.amount}}</td>

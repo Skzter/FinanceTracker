@@ -127,10 +127,12 @@
     </div>
 </div>
 {{ div| safe }}
+{{ div2| safe}}
 {% endblock %}
 {% block footer %}
 <footer class="d-flex justify-content-center">
     <a href="{% url 'admin:index' %}" class="btn btn-warning"> Admin Portal! </a>
 </footer>
 {{ script| safe }}
+{{ script2| safe }}
 {% endblock %}

@@ -45,8 +45,6 @@ def index(request):
     items = Ausgaben.objects
     einnahmen = []
     ausgaben = []
-
-    # Barchart Jahresübersicht
     for x in range(1,13):
         monat = items.filter(month=x) 
         Ein = [eintrag.amount for eintrag in monat.filter(type='E')]
@@ -58,8 +56,8 @@ def index(request):
     type = ['E', 'A']
     data = {'months': months,
             'E': einnahmen,
-            'A': ausgaben
-            }
+            'A': ausgaben}
+
     x = [(m, t) for m in months for t in type]
     counts = sum(zip(data['E'], data['A']), ())
     source = ColumnDataSource(data=dict(x=x, counts=counts))
