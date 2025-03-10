@@ -5,6 +5,8 @@ from .forms import AusgabenForm
 from bokeh.plotting import figure
 from bokeh.embed import components
 from bokeh.models import ColumnDataSource, FactorRange
+from bokeh.transform import factor_cmap
+from bokeh.palettes import Spectral5
 
 # Create your views here.
 def ausgaben(request, month):
@@ -40,74 +42,36 @@ def ausgaben(request, month):
 
 
 def index(request):
-    # Barchart mit allen Monaten, wo Ausgaben u Eingaben gesamtheitlich angezeigt werden
-    # Monate Jan - Dez
-    # Ausgaben/Einnahmen aus DB
     items = Ausgaben.objects
     einnahmen = []
     ausgaben = []
+
+    # Barchart Jahresübersicht
     for x in range(1,13):
         monat = items.filter(month=x) 
-        # alle Einnahmen
         Ein = [eintrag.amount for eintrag in monat.filter(type='E')]
-        sumE = 0
-        for e in Ein:
-            sumE+=e
-        einnahmen.append(sumE) 
-
-        # alle Ausgaben
+        einnahmen.append(float(sum(Ein))) 
         Aus = [eintrag.amount for eintrag in monat.filter(type='A')]
-        sumA = 0
-        for e in Ein:
-            sumA+=e
-        ausgaben.append(sumA) 
-
+        ausgaben.append(float(sum(Aus))) 
     months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
-              'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'
-              ]
-    type = ['Einnahmen', 'Ausgaben']
-
+              'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
+    type = ['E', 'A']
     data = {'months': months,
-            'Einnahmen': einnahmen,
-            'Ausgaben': ausgaben
+            'E': einnahmen,
+            'A': ausgaben
             }
-
     x = [(m, t) for m in months for t in type]
-
-    counts = sum(zip(data['Einnahmen'], data['Ausgaben']), ())
-
+    counts = sum(zip(data['E'], data['A']), ())
     source = ColumnDataSource(data=dict(x=x, counts=counts))
-
-    plot = figure(x_range=FactorRange(*x), height=300,
+    plot = figure(x_range=FactorRange(*x), width=1200, height=500,
                   title="Jahresübersicht Einnahmen/Ausgaben",
                   toolbar_location=None, tools="")
-    plot.vbar(x='x', top='counts', width=0.9, source=source)
-
+    plot.vbar(x='x', top='counts', width=0.9, source=source,
+              fill_color=factor_cmap('x', palette=Spectral5, factors=type, start=1, end=2))
     script, div = components(plot)
-    """
-    fruits = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
-    years = ['2015', '2016', '2017']
 
-    data = {'fruits' : fruits,
-            '2015'   : [2, 1, 4, 3, 2, 4],
-            '2016'   : [5, 3, 3, 2, 4, 6],
-            '2017'   : [3, 2, 4, 4, 5, 3]}
-
-    # this creates [ ("Apples", "2015"), ("Apples", "2016"), ("Apples", "2017"), ("Pears", "2015), ... ]
-    x = [ (fruit, year) for fruit in fruits for year in years ]
-    counts = sum(zip(data['2015'], data['2016'], data['2017']), ()) # like an hstack
-
-    source = ColumnDataSource(data=dict(x=x, counts=counts))
-
-    p = figure(x_range=FactorRange(*x), height=350, title="Fruit Counts by Year",
-               toolbar_location=None, tools="")
-
-    p.vbar(x='x', top='counts', width=0.9, source=source)
-    script, div = components(p)
-    """
     context = {}
     context["script"] = script
     context["div"] = div   
-    
 
     return render(request, "home.html", context)
