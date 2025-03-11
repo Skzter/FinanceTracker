@@ -12,9 +12,9 @@ source ~/path/to/venv/bin/activate
 ```
 You can check if your virtual environment uses the correct python with `which python`.
 It should return `your/home/path/to/env/bin/python`.
-Now install Django with Pip.
+Now install Django and Bokeh with Pip.
 ```
-pip install django
+pip install django bokeh
 ```
 If everything worked you should be able to run `python manage.py runserver` without any issues.
 If thats the case press "CTRL+C" to exit and run `python data.py` to populate the database with some test data.
