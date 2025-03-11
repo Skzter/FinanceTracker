@@ -5,8 +5,8 @@ Django on the Backend with Bootstrap 5 in the Frontend.
 ## Setup 
 At first clone the Repo and make a new Python Virtual Environment.
 ```
-git clone https://github.com/Skzter/FinanzenTracker.git
-cd FinanzenTracker
+git clone https://github.com/Skzter/FinanceTracker.git
+cd FinanceTracker
 python3 -m venv ~/path/to/venv
 source ~/path/to/venv/bin/activate
 ```
