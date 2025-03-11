@@ -19,4 +19,4 @@ pip install django
 If everything worked you should be able to run `python manage.py runserver` without any issues.
 If thats the case press "CTRL+C" to exit and run `python data.py` to populate the database with some test data.
 Now you run `python manage.py runserver` and everything should run smoothly. Visit the adress given by 
-django in your browser and you will see the finance tracker and can play around with it and try it out.
+django in your browser and you will see the finance tracker and can play around with it.
