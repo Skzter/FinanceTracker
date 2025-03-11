@@ -57,6 +57,7 @@ def index(request):
     data = {'months': months,
             'E': einnahmen,
             'A': ausgaben}
+    palette = ('#00FF00', '#FF0000')
 
     x = [(m, t) for m in months for t in type]
     counts = sum(zip(data['E'], data['A']), ())
@@ -65,7 +66,7 @@ def index(request):
                   title="Jahresübersicht Einnahmen/Ausgaben",
                   toolbar_location=None, tools="")
     plot.vbar(x='x', top='counts', width=0.9, source=source,
-              fill_color=factor_cmap('x', palette=Spectral5, factors=type, start=1, end=2))
+              fill_color=factor_cmap('x', palette=palette, factors=type, start=1, end=2))
     script, div = components(plot)
 
     context = {}
